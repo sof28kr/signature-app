@@ -146,8 +146,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<Uint8List?> exportSignature() async {
     final exportController = SignatureController(
-      penStrokeWidth: 4,
-      exportBackgroundColor: Colors.transparent,
+      penStrokeWidth: 2,
+      exportBackgroundColor: Colors.white,
       penColor: Colors.black,
       points: controller!.points,
     );
