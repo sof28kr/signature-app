@@ -3,11 +3,11 @@ import 'package:formulario_cite/pages/homepage.dart';
 import 'package:get/get.dart';
 
 void main() {
-  runApp(const SignatureApp());
+  runApp(const Signature());
 }
 
-class SignatureApp extends StatelessWidget {
-  const SignatureApp({Key? key}) : super(key: key);
+class Signature extends StatelessWidget {
+  const Signature({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
