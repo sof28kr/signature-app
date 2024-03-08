@@ -21,11 +21,15 @@ class ReviewSignaturePage extends StatelessWidget {
             Navigator.pop(context);
           },
           icon: const Icon(Icons.close),
+          color: Colors.white,
         ),
         actions: [
           IconButton(
             onPressed: () => saveSignature(context),
-            icon: const Icon(Icons.save),
+            icon: const Icon(
+              Icons.save,
+              color: Colors.white,
+            ),
           ),
         ],
         centerTitle: true,
@@ -55,10 +59,10 @@ class ReviewSignaturePage extends StatelessWidget {
 
     if (isSuccessful) {
       Navigator.pop(context);
-      Get.snackbar('Success', 'Signature saved to device',
-          backgroundColor: Colors.white, colorText: Colors.green);
+      Get.snackbar('Genial!', 'Se guardo la firma',
+          backgroundColor: Colors.white, colorText: Colors.deepPurple);
     } else {
-      Get.snackbar('Success', 'Signature saved to device',
+      Get.snackbar('Error', 'No se logro guardar la firma',
           backgroundColor: Colors.red, colorText: Colors.white);
     }
   }
