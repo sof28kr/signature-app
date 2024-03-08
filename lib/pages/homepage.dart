@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:signature/signature.dart';
 import 'package:formulario_cite/pages/signaturePage.dart';
 
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // we initialize the signature controller
-    controller = SignatureController(penStrokeWidth: 5, penColor: Colors.white);
+    controller = SignatureController(penStrokeWidth: 6, penColor: Colors.white);
     super.initState();
   }
 
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: Signature(
               controller: controller!,
-              backgroundColor: Colors.teal,
+              backgroundColor: Colors.deepPurple,
             ),
           ),
           buttonWidgets(context)!,
@@ -62,7 +63,7 @@ class _HomePageState extends State<HomePage> {
         setOrientation(newOrientation);
       },
       child: Container(
-        color: Colors.white,
+        color: Colors.black87,
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -72,13 +73,15 @@ class _HomePageState extends State<HomePage> {
                   ? Icons.screen_lock_portrait
                   : Icons.screen_lock_landscape,
               size: 40,
+              color: Colors.white,
             ),
             const SizedBox(
               width: 12,
             ),
             const Text(
-              'Tap to change signature orientation',
-              style: TextStyle(fontWeight: FontWeight.w600),
+              'Click para rotar la pantalla',
+              style:
+                  TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
             ),
           ],
         ),
@@ -101,40 +104,50 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget? buttonWidgets(BuildContext context) => Container(
-        color: Colors.teal,
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          IconButton(
-              onPressed: () async {
-                if (controller!.isNotEmpty) {
-                  final signature = await exportSignature();
+        color: Colors.deepPurple,
+        child: Padding(
+          padding: EdgeInsetsDirectional.all(16.0),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            //boton de guardado
+            ElevatedButton.icon(
+                onPressed: () async {
+                  if (controller!.isNotEmpty) {
+                    final signature = await exportSignature();
 
-                  await Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: ((context) =>
-                          ReviewSignaturePage(signature: signature!)),
-                    ),
-                  );
+                    await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: ((context) =>
+                            ReviewSignaturePage(signature: signature!)),
+                      ),
+                    );
 
+                    controller!.clear();
+                  }
+                },
+                label: const Text('Guardar Firma'),
+                icon: const Icon(
+                  Icons.check,
+                  color: Colors.green,
+                )),
+            //boton de eliminar
+            ElevatedButton.icon(
+                onPressed: () {
                   controller!.clear();
-                }
-              },
-              iconSize: 40,
-              color: Colors.white,
-              icon: const Icon(Icons.check)),
-          IconButton(
-              onPressed: () {
-                controller!.clear();
-              },
-              iconSize: 40,
-              color: Colors.red,
-              icon: const Icon(Icons.close)),
-        ]),
+                },
+                label: const Text('Borrar'),
+                icon: const Icon(
+                  Icons.close,
+                  color: Colors.red,
+                )),
+          ]),
+        ),
       );
 
   Future<Uint8List?> exportSignature() async {
     final exportController = SignatureController(
-      penStrokeWidth: 2,
-      exportBackgroundColor: Colors.white,
+      penStrokeWidth: 4,
+      exportBackgroundColor: Colors.transparent,
       penColor: Colors.black,
       points: controller!.points,
     );

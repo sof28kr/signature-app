@@ -13,27 +13,29 @@ class ReviewSignaturePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.teal,
-        appBar: AppBar(
-          backgroundColor: Colors.teal,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.close),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () => saveSignature(context),
-              icon: const Icon(Icons.save),
-            ),
-          ],
-          centerTitle: true,
-          title: const Text('Save Signature'),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.close),
         ),
-        body: Center(
-          child: Image.memory(signature),
-        ));
+        actions: [
+          IconButton(
+            onPressed: () => saveSignature(context),
+            icon: const Icon(Icons.save),
+          ),
+        ],
+        centerTitle: true,
+        title:
+            const Text('Firma Obtenida', style: TextStyle(color: Colors.white)),
+      ),
+      body: Center(
+        child: Image.memory(signature),
+      ),
+    );
   }
 
   Future? saveSignature(BuildContext context) async {
